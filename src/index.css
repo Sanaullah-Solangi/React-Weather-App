@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "poppins";
+  src: url(./assets/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: "jost";
+  src: url(./assets/Jost-Regular.ttf);
+}
+* {
+  text-transform: capitalize !important;
+  font-family: "poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom right, rgb(61, 60, 60), black);
+  overflow: hidden;
+  height: 100vh;
+}
+
+.appContainer {
+  background: linear-gradient(to bottom right, #085078, #85d8ce);
+  width: 450px;
+  height: 400px;
+}
+
+.weatherSearchBar {
+  width: 90%;
+}
+
+#searchBar:focus {
+  border: none;
+  outline: none;
+}
