@@ -23,8 +23,14 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setWeather(res);
+        console.log(res);
       })
       .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong! Please try again",
+        });
         console.log(err);
       });
   }
@@ -37,7 +43,7 @@ function App() {
       {/* <!--?=== SEARCH BAR ===--> */}
       <WeatherSearchBar
         onKeypress={(event) => {
-          if (event.code == "Enter") {
+          if (event.code == "Enter" && event.target.value != "") {
             setCityName(event.target.value);
             event.target.value = "";
           }
@@ -46,18 +52,24 @@ function App() {
           getWeatherData();
         }}
       />
-
-      {/* <!--?=== WEATHER TEMPRATURE ===--> */}
-      <WeatherTemprature
-        onClick={() => {
-          getWeatherData();
-        }}
-        temp={temp}
-      />
-      {/* <!--?=== CITY NAME ===--> */}
-      <CityName name={name} />
-      {/*=== ADDITIONAL DETAILS ===*/}
-      <AdditionalDetails humidity={humidity} windSpeed={windSpeed} />
+      {weather.message ? (
+        <div className="h-full flex justify-center flex-col gap-4">
+          <CityName name={weather?.cod} />
+          <p className="text-white capitalize">
+            <span className="font-bold text-2xl">{cityName}</span>{" "}
+            {weather?.message}{" "}
+          </p>
+        </div>
+      ) : (
+        <>
+          {/*  === WEATHER TEMPRATURE === */}
+          <WeatherTemprature temp={temp} />
+          {/*  === CITY NAME === */}
+          <CityName name={name} />
+          {/*  === ADDITIONAL DETAILS === */}
+          <AdditionalDetails humidity={humidity} windSpeed={windSpeed} />
+        </>
+      )}
     </div>
   );
 }
